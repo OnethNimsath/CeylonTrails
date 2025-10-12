@@ -1,5 +1,6 @@
 // src/components/Header.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import the Link component
 import ceylonLogo from '../images/Ceylon-Trails.jpg';
 
 const Header = () => {
@@ -14,7 +15,6 @@ const Header = () => {
       <nav className="container mx-auto flex justify-between items-center relative">
         {/* Logo Container */}
         <div className="flex-shrink-0">
-          {/* 2. Change <a> to <Link> and href to "to" */}
           <Link to="/">
             <img 
               src={ceylonLogo} 
@@ -27,7 +27,6 @@ const Header = () => {
         {/* Desktop Navigation Links */}
         <ul className="hidden md:flex space-x-6 text-lg items-center">
           <li>
-            {/* 3. Update all links to use the Link component and correct paths */}
             <Link to="/" className="relative group hover:text-[#6a9772] transition-colors duration-300">
               Home
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#6a9772] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
@@ -77,13 +76,13 @@ const Header = () => {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`md:hidden absolute top-16 left-0 w-full bg-white shadow-lg transition-transform duration-300 ease-in-out transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+      <div className={`md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-transform duration-300 ease-in-out transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-[150%]'}`}>
         <ul className="flex flex-col items-center py-4 space-y-4">
-          <li><a onClick={toggleMenu} href="/" className="block text-lg font-semibold hover:text-[#6a9772]">Home</a></li>
-          <li><a onClick={toggleMenu} href="#" className="block text-lg font-semibold hover:text-[#6a9772]">About</a></li>
-          <li><a onClick={toggleMenu} href="#" className="block text-lg font-semibold hover:text-[#6a9772]">Destinations</a></li>
-          <li><a onClick={toggleMenu} href="#" className="block text-lg font-semibold hover:text-[#6a9772]">Tours</a></li>
-          <li><a onClick={toggleMenu} href="#" className="block text-lg font-semibold hover:text-[#6a9772]">Contact</a></li>
+          <li><Link onClick={toggleMenu} to="/" className="block text-lg font-semibold hover:text-[#6a9772]">Home</Link></li>
+          <li><Link onClick={toggleMenu} to="/about" className="block text-lg font-semibold hover:text-[#6a9772]">About</Link></li>
+          <li><Link onClick={toggleMenu} to="/destinations" className="block text-lg font-semibold hover:text-[#6a9772]">Destinations</Link></li>
+          <li><Link onClick={toggleMenu} to="/tours" className="block text-lg font-semibold hover:text-[#6a9772]">Tours</Link></li>
+          <li><Link onClick={toggleMenu} to="/contact" className="block text-lg font-semibold hover:text-[#6a9772]">Contact</Link></li>
           <li><button onClick={toggleMenu} className="bg-[#6a9772] text-white px-4 py-2 rounded-full hover:bg-[#3a6042]">Book Now</button></li>
         </ul>
       </div>
