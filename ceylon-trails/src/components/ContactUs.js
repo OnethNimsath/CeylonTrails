@@ -1,18 +1,32 @@
+// src/components/ContactUsPage.js
+
 import React from 'react';
-import sriLankaHeritageBg from '../images/Sri-Lanka-Sigiriya.jpg'; 
+// Import your background video files
+import sriLankaSceneryMp4 from '../assets/contact-us-video.mp4';
 
 const ContactUsPage = () => {
     return (
-        <main
-            className="relative flex-grow min-h-screen bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${sriLankaHeritageBg})` }}
-        >
-            <div className="absolute inset-0 bg-black opacity-60"></div>
+        <main className="relative flex-grow min-h-screen">
+            {/* Background Video Element */}
+            <video
+                className="absolute inset-0 z-0 w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline // Crucial for autoplay on mobile devices
+            >
+                <source src={sriLankaSceneryMp4} type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
 
-            <div className="relative z-10 container mx-auto px-4 py-12 md:py-24">
+            {/* Dark Overlay for Readability */}
+            <div className="absolute inset-0 bg-black opacity-60 z-10"></div>
+
+            {/* Content Container (relative z-20 to be above the video and overlay) */}
+            <div className="relative z-20 container mx-auto px-4 py-12 md:py-24">
                 <section className="text-center mb-12 text-white">
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-4 animate-fadeInDown">
-                        Get in Touch 📧
+                        Get in Touch 
                     </h1>
                     <p className="text-lg md:text-xl animate-fadeInUp delay-300">
                         Let's plan your journey to the Pearl of the Indian Ocean.
@@ -20,8 +34,7 @@ const ContactUsPage = () => {
                 </section>
 
                 <div className="grid md:grid-cols-2 gap-8 items-center">
-                    
-                    {/* Contact Form Section with float-up animation */}
+                    {/* Contact Form Section */}
                     <div className="bg-white bg-opacity-90 rounded-lg shadow-xl p-8 transform transition-transform hover:scale-105 duration-300 animate-float-up">
                         <h2 className="text-3xl font-bold text-gray-800 mb-6">Send Us a Message</h2>
                         <form className="space-y-6">
@@ -73,7 +86,7 @@ const ContactUsPage = () => {
                                 type="submit"
                                 className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300 transform hover:-translate-y-1"
                             >
-                                Send Message 🚀
+                                Send Message 
                             </button>
                         </form>
                     </div>
@@ -120,15 +133,13 @@ const ContactUsPage = () => {
                             <div className="pt-4">
                                 <h3 className="text-lg font-medium text-gray-900">Find us on Map</h3>
                                 <div className="mt-2 w-full h-48 bg-gray-200 rounded-lg overflow-hidden border border-gray-300">
-                                    <iframe 
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.916027387332!2d79.85172697500174!3d6.901614893092261!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2596489a263c1%3A0x633d711f5d63f0d5!2s123%20Galle%20Rd%2C%20Colombo%2000300%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1697116643666!5m2!1sen!2sus"
-                                        width="100%"
-                                        height="100%"
-                                        style={{ border: 0 }}
-                                        allowFullScreen="" 
-                                        loading="lazy" 
-                                        referrerPolicy="no-referrer-when-downgrade"
-                                        title="Google Maps Location"
+                                    <iframe src="https://maps.google.com/?q=123+Galle+Rd,+Colombo+00300,+Sri+Lanka&ftid=0x3ae259416d0c216f:0x604c097e98d47ca5&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
                                     ></iframe>
                                 </div>
                             </div>
