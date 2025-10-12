@@ -9,6 +9,7 @@ import step1Image from '../src/images/Sri-Lanka-Beach.jpg';
 import step2Image from '../src/images/Sri-Lanka-Beach.jpg';
 import step3Image from '../src/images/Sri-Lanka-Beach.jpg';
 import step4Image from '../src/images/Sri-Lanka-Beach.jpg';
+import srilankabeach from'../src/images/dinuka-lankaloka-iduEaeBB_rQ-unsplash.jpg';
 
 // --- Helper component for simple scroll animations ---
 const AnimatedSection = ({ children, className }) => {
@@ -244,7 +245,7 @@ function AboutUs() {
       {/* Our Travel Philosophy Section */}
       <div className="relative py-24 sm:py-32">
         <div className="absolute inset-0">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto-format&fit=crop" alt="Lush green jungle"/>
+          <img className="h-full w-full object-cover" src={srilankabeach} alt="Sri Lanka Travel"/>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
