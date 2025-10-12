@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import HighlightsSection from './components/HighlightsSection';
 import AboutUs from './Aboutus';
+import ContactUsPage from './components/ContactUs';
 import Footer from './components/Footer';
 
 function App() {
@@ -28,6 +29,9 @@ function App() {
 
             {/* Route for the About Us page */}
             <Route path="/about" element={<AboutUs />} />
+
+            {/* Route for the Contact Us page */}
+            <Route path="/contact-us" element={<ContactUsPage />}/>
             
             {/* You can add more routes for future pages here */}
           </Routes>
