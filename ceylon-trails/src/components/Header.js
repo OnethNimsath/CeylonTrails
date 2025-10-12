@@ -39,7 +39,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/destinations" className="relative group hover:text-[#6a9772] transition-colors duration-300">
+            <Link to="/destination" className="relative group hover:text-[#6a9772] transition-colors duration-300">
               Destinations
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#6a9772] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
             </Link>
