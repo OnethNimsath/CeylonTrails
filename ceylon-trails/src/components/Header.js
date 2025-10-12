@@ -51,7 +51,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/contact" className="relative group hover:text-[#6a9772] transition-colors duration-300">
+            <Link to="/contact-us" className="relative group hover:text-[#6a9772] transition-colors duration-300">
               Contact
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#6a9772] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
             </Link>
