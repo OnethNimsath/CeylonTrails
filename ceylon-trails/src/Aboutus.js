@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { FaLinkedin, FaTwitter, FaGithub, FaCompass, FaGlobeAmericas, FaLeaf } from 'react-icons/fa';
+import { FaCompass, FaGlobeAmericas, FaLeaf } from 'react-icons/fa';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-// --- Helper component for scroll animations ---
+// --- Import your local images here ---
+import adventureBg from '../src/images/Nine-Arches-Bridge.jpg';
+import step1Image from '../src/images/Sri-Lanka-Beach.jpg';
+import step2Image from '../src/images/Sri-Lanka-Beach.jpg';
+import step3Image from '../src/images/Sri-Lanka-Beach.jpg';
+import step4Image from '../src/images/Sri-Lanka-Beach.jpg';
+
+// --- Helper component for simple scroll animations ---
 const AnimatedSection = ({ children, className }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -21,30 +29,55 @@ const AnimatedSection = ({ children, className }) => {
   );
 };
 
-// --- Team Member Data ---
-const teamMembers = [
+// --- Customer Review Data ---
+const customerReviews = [
   {
-    name: 'Jane Doe',
-    role: 'Founder & Chief Explorer',
-    imageUrl: 'https://i.pravatar.cc/150?img=1',
-    socials: { linkedin: '#', twitter: '#', github: '#' },
-    bio: 'The visionary who charted the course for our incredible journeys.'
+    name: 'Alex Johnson',
+    trip: 'Sri Lankan Tea Trails Expedition',
+    imageUrl: 'https://i.pravatar.cc/150?img=5',
+    rating: 5,
+    review: 'An absolutely unforgettable experience! Every detail was perfectly planned. Highly recommend!'
   },
   {
-    name: 'John Smith',
-    role: 'Lead Developer & Tech Navigator',
-    imageUrl: 'https://i.pravatar.cc/150?img=2',
-    socials: { linkedin: '#', twitter: '#', github: '#' },
-    bio: 'The architect of our digital compass, ensuring a seamless user experience.'
+    name: 'Maria Garcia',
+    trip: 'Coastal Wonders Tour',
+    imageUrl: 'https://i.pravatar.cc/150?img=6',
+    rating: 5,
+    review: 'This was the adventure of a lifetime. The commitment to sustainable travel was also very impressive.'
   },
   {
-    name: 'Emily White',
-    role: 'Marketing & Storyteller',
-    imageUrl: 'https://i.pravatar.cc/150?img=3',
-    socials: { linkedin: '#', twitter: '#' },
-    bio: 'The creative voice who shares the magic of our adventures with the world.'
+    name: 'David Chen',
+    trip: 'Cultural Heritage Journey',
+    imageUrl: 'https://i.pravatar.cc/150?img=7',
+    rating: 4,
+    review: 'A fantastic way to immerse yourself in the local culture. A well-organized and enriching trip.'
   },
 ];
+
+// --- Adventure Crafting Process Data ---
+const journeySteps = [
+    {
+        imageUrl: step1Image,
+        title: '1. Discover & Dream',
+        description: 'We begin with a conversation, not a catalog. We listen to your travel aspirations to design an experience that is uniquely yours.'
+    },
+    {
+        imageUrl: step2Image,
+        title: '2. Blueprint of Wonder',
+        description: 'Our travel artisans map out your journey, blending iconic landmarks with exclusive, off-the-beaten-path encounters.'
+    },
+    {
+        imageUrl: step3Image,
+        title: '3. Embark with Confidence',
+        description: 'With every detail flawlessly arranged, you are free to immerse yourself in the moment. Your only job is to explore.'
+    },
+    {
+        imageUrl: step4Image,
+        title: '4. Memories Forged',
+        description: 'Return with more than just photos. Bring back a collection of profound moments and stories that will be retold for a lifetime.'
+    }
+];
+
 
 // --- Philosophy Data ---
 const travelPhilosophy = [
@@ -63,18 +96,104 @@ const travelPhilosophy = [
         title: 'Pure Adventure',
         description: 'We craft itineraries that inspire a sense of wonder, discovery, and excitement.'
     }
-]
+];
+
+// --- Hero Image Data for Slider ---
+const heroImages = [
+  {
+    src: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto-format&fit=crop',
+    alt: 'Beautiful Italian coast with colorful houses'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto-format&fit=crop',
+    alt: 'Person on a boat in a serene mountain lake'
+  },
+];
+
+// --- Star Rating Component ---
+const StarRating = ({ rating }) => {
+    return (
+      <div className="flex justify-center text-yellow-400">
+        {[...Array(5)].map((_, i) => (
+          <svg key={i} className={`h-5 w-5 ${i < rating ? 'fill-current' : 'text-gray-400'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+          </svg>
+        ))}
+      </div>
+    );
+};
+
+// --- ANIMATED Timeline Step Component ---
+const JourneyStep = ({ step, index }) => {
+  // Animation variants for the text content
+  const contentVariants = {
+    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } 
+    },
+  };
+
+  return (
+    <div className="relative mb-20 md:mb-28 last:mb-0 flex items-center w-full">
+      {/* Text Content */}
+      <motion.div
+        className={`w-1/2 ${index % 2 === 0 ? 'text-right pr-12 md:pr-16' : 'text-left pl-12 md:pl-16 order-2'}`}
+        variants={contentVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+      >
+        <h3 className="text-2xl font-bold text-emerald-400">{step.title}</h3>
+        <p className="text-gray-200 mt-2">{step.description}</p>
+      </motion.div>
+
+      {/* Spacer to push content to the sides */}
+      <div className="w-1/2"></div>
+    </div>
+  );
+};
+
 
 // --- Main About Us Component ---
 function AboutUs() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Ref for the timeline container to track scroll progress
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"],
+  });
+  
+  // Transform the scroll progress to control the line's height
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % heroImages.length);
+    }, 3000); 
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="overflow-x-hidden"> {/* overflow-x-hidden prevents horizontal scrollbars */}
+    <div className="overflow-x-hidden">
       
-      {/* Hero Section */}
+      {/* Hero Section with Image Slider */}
       <div className="relative py-24 sm:py-32">
-        {/* Background Image & Overlay */}
         <div className="absolute inset-0">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1528543606781-df6e6857e35b?auto=format&fit=crop" alt="Travel map background"/>
+          {heroImages.map((image, index) => (
+            <img
+              key={index}
+              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+              src={image.src}
+              alt={image.alt}
+            />
+          ))}
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8 text-center text-white">
@@ -89,47 +208,43 @@ function AboutUs() {
         </div>
       </div>
 
-      {/* Timeline Section for "Our Story" */}
+      {/* --- REDESIGNED "From Dream to Destination" Section --- */}
       <div className="relative py-24 sm:py-32">
-         {/* Background Image & Overlay */}
-         <div className="absolute inset-0">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1543361189-6a3583333334?auto=format&fit=crop" alt="Vintage map texture"/>
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+        <div className="absolute inset-0">
+          <img className="h-full w-full object-cover" src={adventureBg} alt="Desk with a map, compass, and travel items"/>
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
         </div>
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection className="max-w-2xl mx-auto text-center mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-emerald-600 sm:text-4xl">The Path We've Traveled</h2>
-            </AnimatedSection>
+        <div className="relative mx-auto max-w-4xl px-6 lg:px-8">
+          <AnimatedSection className="max-w-3xl mx-auto text-center mb-20">
+            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              From Dream to Destination
+            </h2>
+            <p className="mt-6 text-lg text-gray-300">
+              Every journey is a masterpiece. Here’s how we bring yours to life, step by meticulous step.
+            </p>
+          </AnimatedSection>
+          
+          <div ref={timelineRef} className="relative">
+            {/* The static background line */}
+            <div className="absolute left-1/2 -ml-0.5 h-full w-1 bg-gray-600/50"></div>
             
-            <div className="relative mt-8">
-                <div className="absolute left-1/2 -ml-px h-full w-0.5 bg-gray-400"></div>
-                <AnimatedSection className="relative mb-12">
-                    <div className="md:flex items-center md:justify-end md:mr-10">
-                        <div className="md:w-1/2 text-left md:text-right pr-8">
-                            <p className="text-lg font-semibold text-gray-800">2024 - The Spark</p>
-                            <p className="text-gray-600">Founded in a small garage in Kadawatha, Sri Lanka, fueled by a shared vision to redefine travel.</p>
-                        </div>
-                    </div>
-                    <div className="absolute left-1/2 -ml-2 h-4 w-4 rounded-full bg-emerald-500 border-2 border-white"></div>
-                </AnimatedSection>
-                <AnimatedSection className="relative mb-12">
-                    <div className="md:flex items-center">
-                        <div className="md:w-1/2 md:ml-10 pl-8">
-                            <p className="text-lg font-semibold text-gray-800">2025 - First Expedition</p>
-                            <p className="text-gray-600">We launched our first curated tour, taking a small group through the lush tea trails of central Sri Lanka.</p>
-                        </div>
-                    </div>
-                    <div className="absolute left-1/2 -ml-2 h-4 w-4 rounded-full bg-emerald-500 border-2 border-white"></div>
-                </AnimatedSection>
-            </div>
+            {/* The animated, colored line that draws on scroll */}
+            <motion.div
+              className="absolute left-1/2 -ml-0.5 h-full w-1 bg-emerald-400"
+              style={{ height: lineHeight }}
+            />
+
+            {journeySteps.map((step, index) => (
+              <JourneyStep key={index} step={step} index={index} />
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Our Travel Philosophy Section */}
       <div className="relative py-24 sm:py-32">
-        {/* Background Image & Overlay */}
         <div className="absolute inset-0">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto=format&fit=crop" alt="Lush green jungle"/>
+          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?auto-format&fit=crop" alt="Lush green jungle"/>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
@@ -140,7 +255,7 @@ function AboutUs() {
                 {travelPhilosophy.map((item, index) => (
                     <AnimatedSection key={index} className="bg-white/10 backdrop-blur-md p-8 rounded-xl text-white">
                         <div className="flex justify-center mb-4">{React.cloneElement(item.icon, { className: "h-10 w-10 text-white" })}</div>
-                        <h3 className="text-xl font-semibold">{item.title}</h3>
+                        <h3 className="xl font-semibold">{item.title}</h3>
                         <p className="mt-2 opacity-90">{item.description}</p>
                     </AnimatedSection>
                 ))}
@@ -148,34 +263,36 @@ function AboutUs() {
         </div>
       </div>
 
-      {/* Team Section */}
+      {/* Customer Reviews Section */}
       <div className="relative py-24 sm:py-32">
-        {/* Background Image & Overlay */}
         <div className="absolute inset-0">
-          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?auto=format&fit=crop" alt="Mountain range"/>
-          <div className="absolute inset-0 bg-gray-900/70"></div>
+          <img className="h-full w-full object-cover" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto-format&fit=crop" alt="Group of happy travelers" />
+          <div className="absolute inset-0 bg-gray-900/80"></div>
         </div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-            <AnimatedSection className="max-w-2xl mx-auto text-center mb-16">
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Meet the Trailblazers</h2>
+            <AnimatedSection className="max-w-3xl mx-auto text-center mb-16">
+                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">What Our Adventurers Say</h2>
+                <p className="mt-4 text-lg text-gray-300">Real stories from travelers who have journeyed with us.</p>
             </AnimatedSection>
-            <ul className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                {teamMembers.map((person) => (
-                <AnimatedSection key={person.name}>
-                    <li className="text-center bg-white p-6 rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                    <img className="mx-auto h-24 w-24 rounded-full" src={person.imageUrl} alt={person.name} />
-                    <h3 className="mt-6 text-base font-semibold text-gray-900">{person.name}</h3>
-                    <p className="text-sm leading-6 text-emerald-600">{person.role}</p>
-                    <p className="mt-2 text-sm text-gray-500">{person.bio}</p>
-                    <ul className="mt-6 flex justify-center gap-x-6">
-                        <li><a href={person.socials.linkedin} className="text-gray-400 hover:text-emerald-500"><FaLinkedin className="h-5 w-5" /></a></li>
-                        <li><a href={person.socials.twitter} className="text-gray-400 hover:text-emerald-500"><FaTwitter className="h-5 w-5" /></a></li>
-                        <li><a href={person.socials.github} className="text-gray-400 hover:text-emerald-500"><FaGithub className="h-5 w-5" /></a></li>
-                    </ul>
-                    </li>
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                {customerReviews.map((review) => (
+                <AnimatedSection key={review.name}>
+                    <div className="flex h-full flex-col text-center bg-white/10 backdrop-blur-md p-8 rounded-xl text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20">
+                      <img className="mx-auto h-20 w-20 rounded-full" src={review.imageUrl} alt={review.name} />
+                      <blockquote className="mt-6 flex-grow">
+                        <p className="text-lg leading-7 font-medium text-white">"{review.review}"</p>
+                      </blockquote>
+                      <footer className="mt-6">
+                        <p className="text-base font-semibold text-white">{review.name}</p>
+                        <p className="text-sm text-emerald-300">{review.trip}</p>
+                        <div className="mt-3">
+                           <StarRating rating={review.rating} />
+                        </div>
+                      </footer>
+                    </div>
                 </AnimatedSection>
                 ))}
-            </ul>
+            </div>
         </div>
       </div>
     </div>
