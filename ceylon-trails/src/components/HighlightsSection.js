@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { FiArrowRight } from 'react-icons/fi'; // An elegant icon for the card
 
 // Import your highlight images
 import beachHighlight from '../images/Sri-Lanka-Beach.jpg';
@@ -12,106 +13,107 @@ const HighlightsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
-  // Updated content to be more evocative and prideful
   const highlights = [
     {
-      title: 'Golden Coasts & Azure Waters',
-      description: 'Discover endless stretches of sun-kissed beaches, where tranquil waves whisper tales of the ocean.',
+      title: 'Golden Coasts',
+      description: 'Discover sun-kissed beaches where tranquil waves whisper tales of the ocean.',
       image: beachHighlight
     },
     {
-      title: 'Timeless Heritage & Sacred Sites',
-      description: 'Walk through the corridors of history in ancient kingdoms and UNESCO-protected wonders.',
+      title: 'Timeless Heritage',
+      description: 'Walk through history in ancient kingdoms and UNESCO-protected wonders.',
       image: ancientHighlight
     },
     {
-      title: 'Lush Jungles & Wild Wonders',
-      description: 'Embark on an adventure to witness the island’s incredible biodiversity, from gentle giants to elusive leopards.',
+      title: 'Wild Wonders',
+      description: 'Embark on an adventure to witness the island’s incredible biodiversity.',
       image: wildlifeHighlight
     },
   ];
-
+  
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.3 } }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-        duration: 0.8
-      }
-    }
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
-  const overlayTextVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
-  };
+  // Internal CSS for the animated gradient background
+  const gradientStyle = `
+    .subtle-animated-gradient {
+      background: linear-gradient(-45deg, #e8f5e9, #f3e5f5, #e3f2fd, #fcf3e6);
+      background-size: 400% 400%;
+      animation: subtleGradient 25s ease infinite;
+    }
+
+    @keyframes subtleGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  `;
 
   return (
-    <section className="py-24 px-4 bg-[#f7fdf8]" ref={ref}>
-      <div className="container mx-auto text-center">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#3a6042]">The Jewel of the Indian Ocean</h2>
-        <p className="text-lg text-gray-600 mb-16 max-w-3xl mx-auto">
-            From ancient wonders to breathtaking natural beauty, every moment in Sri Lanka is a treasure waiting to be discovered.
-        </p>
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-10"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
-          {highlights.map((item, index) => (
-            <motion.div
-              key={index}
-              className="relative rounded-lg shadow-xl overflow-hidden group cursor-pointer"
-              variants={cardVariants}
-            >
-              {/* Image */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-96 object-cover transform transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:brightness-[.6]"
-              />
+    <>
+      {/* This style tag injects the internal CSS into the page */}
+      <style>{gradientStyle}</style>
 
-              {/* Hover Overlay with Gradient */}
-              <motion.div 
-                className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 to-transparent"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+      <section 
+        className="py-24 px-4 subtle-animated-gradient" 
+        ref={ref}
+      >
+        <div className="container mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#3a6042]">The Jewel of the Indian Ocean</h2>
+          <p className="text-lg text-gray-600 mb-16 max-w-3xl mx-auto">
+            From ancient wonders to breathtaking natural beauty, every moment in Sri Lanka is a treasure waiting to be discovered.
+          </p>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {highlights.map((item, index) => (
+              <motion.div
+                key={index}
+                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-[28rem]"
+                variants={cardVariants}
               >
-                <motion.h3 
-                  className="text-2xl font-semibold mb-2 text-white"
-                  variants={overlayTextVariants}
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                
+                <motion.div 
+                  className="absolute bottom-0 left-0 right-0 p-6 text-white text-left"
+                  layout // This prop enables smooth resizing animation
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                  {item.title}
-                </motion.h3>
-                <motion.p 
-                  className="text-gray-200"
-                  variants={overlayTextVariants}
-                >
-                  {item.description}
-                </motion.p>
+                  <h3 className="text-2xl font-bold">{item.title}</h3>
+                  <div className="overflow-hidden">
+                      <p className="mt-2 text-gray-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                          {item.description}
+                      </p>
+                      <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <span className="inline-flex items-center font-semibold">
+                              Explore <FiArrowRight className="ml-2" />
+                          </span>
+                      </div>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 };
 
