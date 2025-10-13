@@ -3,21 +3,20 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import HighlightsSection from './components/HighlightsSection';
+import ExperienceSection from './components/ExperienceSection'; // 👈 1. IMPORT THE NEW COMPONENT
 import AboutUs from './Aboutus';
 import ContactUsPage from './components/ContactUs';
 import Destinations from './Destination'
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop'; // 👈 1. IMPORT THE COMPONENT
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
-      <ScrollToTop /> {/* 👈 2. ADD THE COMPONENT HERE */}
+      <ScrollToTop /> 
       <div className="bg-white text-gray-800 font-sans antialiased">
-        {/* Header and Footer will appear on all pages */}
         <Header />
         <main>
-          {/* 3. Routes define which component to show for each URL */}
           <Routes>
             {/* Route for the Home page */}
             <Route 
@@ -26,6 +25,7 @@ function App() {
                 <>
                   <HeroSection />
                   <HighlightsSection />
+                  <ExperienceSection /> {/* 👈 2. ADD THE NEW COMPONENT HERE */}
                 </>
               } 
             />
@@ -38,7 +38,6 @@ function App() {
             {/* Route for the Destination page */}
             <Route path="/destination" element={<Destinations />} />
             
-            {/* You can add more routes for future pages here */}
           </Routes>
         </main>
         <Footer />
