@@ -6,8 +6,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // MODIFICATION: Added keyframes and animation for the logo
       keyframes: {
+        // Your existing animation
         'fade-in-down': {
           '0%': {
             opacity: '0',
@@ -17,10 +17,25 @@ module.exports = {
             opacity: '1',
             transform: 'translateY(0)'
           },
-        }
+        },
+        // NEW: Added the float-up animation for the contact page
+        'float-up': {
+          '0%': { 
+            transform: 'translateY(30px)', 
+            opacity: '0' 
+          },
+          '100%': { 
+            transform: 'translateY(0)', 
+            opacity: '1' 
+          },
+        },
       },
       animation: {
-        'fade-in-down': 'fade-in-down 0.8s ease-out'
+        // Your existing animation
+        'fade-in-down': 'fade-in-down 0.8s ease-out',
+        // NEW: Added the float-up animation for the contact page
+        // The 'forwards' keyword ensures the element stays in its final state after animating
+        'float-up': 'float-up 0.8s ease-out forwards',
       }
     },
   },
