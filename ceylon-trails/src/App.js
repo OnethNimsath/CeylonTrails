@@ -7,10 +7,12 @@ import AboutUs from './Aboutus';
 import ContactUsPage from './components/ContactUs';
 import Destinations from './Destination'
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop'; // 👈 1. IMPORT THE COMPONENT
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> {/* 👈 2. ADD THE COMPONENT HERE */}
       <div className="bg-white text-gray-800 font-sans antialiased">
         {/* Header and Footer will appear on all pages */}
         <Header />
