@@ -183,7 +183,7 @@ function AboutUs() {
     <div className="overflow-x-hidden">
       
       {/* Hero Section with Image Slider */}
-      <div className="relative py-24 sm:py-32">
+      <div className="relative py-40 sm:py-56">
         <div className="absolute inset-0">
           {heroImages.map((image, index) => (
             <img
