@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import HighlightsSection from './components/HighlightsSection';
-import ExperienceSection from './components/ExperienceSection'; // 👈 1. IMPORT THE NEW COMPONENT
+import ExperienceSection from './components/ExperienceSection';
 import AboutUs from './Aboutus';
 import ContactUsPage from './components/ContactUs';
-import Destinations from './Destination'
+import Destinations from './Destination';
+import ToursPage from './components/ToursPage';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -25,7 +26,7 @@ function App() {
                 <>
                   <HeroSection />
                   <HighlightsSection />
-                  <ExperienceSection /> {/* 👈 2. ADD THE NEW COMPONENT HERE */}
+                  <ExperienceSection />
                 </>
               } 
             />
@@ -34,9 +35,13 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
 
             {/* Route for the Contact Us page */}
-            <Route path="/contact-us" element={<ContactUsPage />}/>
+            <Route path="/contact-us" element={<ContactUsPage />} />
+            
             {/* Route for the Destination page */}
             <Route path="/destination" element={<Destinations />} />
+            
+            {/* Route for the Tours page */}
+            <Route path="/tours" element={<ToursPage />} /> 
             
           </Routes>
         </main>
