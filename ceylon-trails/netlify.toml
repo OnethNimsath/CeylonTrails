@@ -1,3 +1,11 @@
+[build]
+  # OVERRIDE: Tells Netlify to go into this folder to start the build.
+  base = "ceylon-trails"
+  # OVERRIDE: Tells Netlify to serve the 'build' folder *inside* the base directory.
+  publish = "build"
+  command = "npm run build"
+
+# FIX: This is the critical rewrite rule for React client-side routing.
 [[redirects]]
   from = "/*"
   to = "/index.html"
