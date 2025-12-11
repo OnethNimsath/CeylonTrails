@@ -28,7 +28,7 @@ const ContactUsPage = () => {
     // Handler for form submission (no changes here)
     const handleWhatsAppRedirect = (e) => {
         e.preventDefault();
-        const companyWhatsAppNumber = '94740681862'; 
+        const companyWhatsAppNumber = '94774378268'; 
         const message = `
 *New Inquiry from Website*
 
@@ -144,7 +144,7 @@ ${formData.message}
                             </div>
                             <div>
                                 <h3 className="text-lg font-medium">Phone</h3>
-                                <p className="text-gray-300">+94 11 2345678</p>
+                                <p className="text-gray-300">+94 77 437 8268</p>
                             </div>
                         </div>
 
@@ -154,7 +154,7 @@ ${formData.message}
                             </div>
                             <div>
                                 <h3 className="text-lg font-medium">Email</h3>
-                                <p className="text-gray-300">info@ceylontrails.com</p>
+                                <p className="text-gray-300">ashenrathnayake0717@gmail.com</p>
                             </div>
                         </div>
 
@@ -164,7 +164,7 @@ ${formData.message}
                             </div>
                             <div>
                                 <h3 className="text-lg font-medium">Address</h3>
-                                <p className="text-gray-300">123 Galle Road, Colombo, Sri Lanka</p>
+                                <p className="text-gray-300">No: 27, dehideniye, malwaththa, muruthalawa</p>
                             </div>
                         </div>
 

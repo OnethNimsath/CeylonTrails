@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { FiArrowRight } from 'react-icons/fi'; // An elegant icon for the card
+import { FiArrowRight } from 'react-icons/fi';
 
 // Import your highlight images
 import beachHighlight from '../images/Sri-Lanka-Beach.jpg';
@@ -26,7 +26,7 @@ const HighlightsSection = () => {
     },
     {
       title: 'Wild Wonders',
-      description: 'Embark on an adventure to witness the island’s incredible biodiversity.',
+      description: 'Embark on an adventure to witness the islands incredible biodiversity.',
       image: wildlifeHighlight
     },
   ];
@@ -59,21 +59,22 @@ const HighlightsSection = () => {
 
   return (
     <>
-      {/* This style tag injects the internal CSS into the page */}
       <style>{gradientStyle}</style>
 
       <section 
-        className="py-24 px-4 subtle-animated-gradient" 
+        className="py-10 xs:py-12 sm:py-16 md:py-20 lg:py-24 px-3 xs:px-4 sm:px-6 lg:px-8 subtle-animated-gradient" 
         ref={ref}
       >
         <div className="container mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#3a6042]">The Jewel of the Indian Ocean</h2>
-          <p className="text-lg text-gray-600 mb-16 max-w-3xl mx-auto">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-[#3a6042] px-2">
+            The Jewel of the Indian Ocean
+          </h2>
+          <p className="text-sm xs:text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 md:mb-12 lg:mb-16 max-w-3xl mx-auto px-2 sm:px-4 leading-relaxed">
             From ancient wonders to breathtaking natural beauty, every moment in Sri Lanka is a treasure waiting to be discovered.
           </p>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 md:gap-8"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -81,7 +82,7 @@ const HighlightsSection = () => {
             {highlights.map((item, index) => (
               <motion.div
                 key={index}
-                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-[28rem]"
+                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-72 xs:h-80 sm:h-96 lg:h-[28rem]"
                 variants={cardVariants}
               >
                 <img
@@ -92,20 +93,20 @@ const HighlightsSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 <motion.div 
-                  className="absolute bottom-0 left-0 right-0 p-6 text-white text-left"
-                  layout // This prop enables smooth resizing animation
+                  className="absolute bottom-0 left-0 right-0 p-4 xs:p-5 sm:p-6 text-white text-left"
+                  layout
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                  <h3 className="text-2xl font-bold">{item.title}</h3>
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-bold">{item.title}</h3>
                   <div className="overflow-hidden">
-                      <p className="mt-2 text-gray-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">
-                          {item.description}
-                      </p>
-                      <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <span className="inline-flex items-center font-semibold">
-                              Explore <FiArrowRight className="ml-2" />
-                          </span>
-                      </div>
+                    <p className="mt-2 text-xs xs:text-sm sm:text-base text-gray-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                      {item.description}
+                    </p>
+                    <div className="mt-2 xs:mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="inline-flex items-center font-semibold text-xs xs:text-sm sm:text-base">
+                        Explore <FiArrowRight className="ml-2" />
+                      </span>
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapPinIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { FaWhatsapp } from 'react-icons/fa';
+import toursHeroImage from '../images/tours.jpg';
 
 
 const ToursPage = () => {
@@ -78,8 +79,18 @@ const ToursPage = () => {
         <div className="flex flex-col min-h-screen w-screen overflow-x-hidden bg-white">
             <main className="container mx-auto p-4 sm:p-8 flex-grow mt-8"> 
                 
-                {/* Tours Hero Section */}
-                <section className={`relative text-center py-16 md:py-24 bg-gray-900 rounded-xl shadow-lg text-white overflow-hidden transition-all duration-1000 ${visibleClass} delay-[50ms] mb-16`}>
+                {/* Tours Hero Section with Background Image */}
+                <section className={`relative text-center py-16 md:py-24 rounded-xl shadow-lg text-white overflow-hidden transition-all duration-1000 ${visibleClass} delay-[50ms] mb-16`}>
+                    {/* Background Image */}
+                    <div 
+                        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                        style={{ backgroundImage: `url(${toursHeroImage})` }}
+                    />
+                    
+                    {/* Dark Overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black opacity-60" />
+                    
+                    {/* Content */}
                     <div className="relative z-10 p-4">
                         <GlobeAltIcon className="w-16 h-16 mx-auto mb-4 text-orange-500" />
                         <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">

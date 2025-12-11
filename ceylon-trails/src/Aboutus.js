@@ -35,22 +35,19 @@ const customerReviews = [
   {
     name: 'Alex Johnson',
     trip: 'Sri Lankan Tea Trails Expedition',
-    imageUrl: 'https://i.pravatar.cc/150?img=5',
     rating: 5,
     review: 'An absolutely unforgettable experience! Every detail was perfectly planned. Highly recommend!'
   },
   {
     name: 'Maria Garcia',
     trip: 'Coastal Wonders Tour',
-    imageUrl: 'https://i.pravatar.cc/150?img=6',
     rating: 5,
     review: 'This was the adventure of a lifetime. The commitment to sustainable travel was also very impressive.'
   },
   {
     name: 'David Chen',
     trip: 'Cultural Heritage Journey',
-    imageUrl: 'https://i.pravatar.cc/150?img=7',
-    rating: 4,
+    rating: 5,
     review: 'A fantastic way to immerse yourself in the local culture. A well-organized and enriching trip.'
   },
 ];
