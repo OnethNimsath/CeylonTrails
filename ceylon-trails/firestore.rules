@@ -1,0 +1,20 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /reviews/{reviewId} {
+      allow read: if resource.data.status == 'approved';
+      allow create: if request.resource.data.keys().hasAll([
+        'touristName', 
+        'destination', 
+        'rating', 
+        'feedback', 
+        'createdAt', 
+        'status'
+      ]) 
+      && request.resource.data.rating >= 1
+      && request.resource.data.rating <= 5
+      && request.resource.data.feedback.size() >= 20;
+      allow update, delete: if false;
+    }
+  }
+}

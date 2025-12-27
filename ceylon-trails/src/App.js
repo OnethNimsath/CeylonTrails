@@ -8,6 +8,7 @@ import AboutUs from './Aboutus';
 import ContactUsPage from './components/ContactUs';
 import Destinations from './Destination';
 import ToursPage from './components/ToursPage';
+import Reviews from './components/Reviews';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -42,6 +43,9 @@ function App() {
             
             {/* Route for the Tours page */}
             <Route path="/tours" element={<ToursPage />} /> 
+            
+            {/* Route for the Reviews page */}
+            <Route path="/reviews" element={<Reviews />} />
             
           </Routes>
         </main>

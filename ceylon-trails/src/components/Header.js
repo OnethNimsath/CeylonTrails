@@ -42,12 +42,13 @@ const Header = () => {
   };
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/destination', label: 'Destinations' },
-    { path: '/tours', label: 'Tours' },
-    { path: '/contact-us', label: 'Contact' },
-  ];
+  { path: '/', label: 'Home' },
+  { path: '/about', label: 'About' },
+  { path: '/destination', label: 'Destinations' },
+  { path: '/tours', label: 'Tours' },
+  { path: '/reviews', label: 'Reviews' },  // ← NEW
+  { path: '/contact-us', label: 'Contact' },
+];
 
   // --- DYNAMIC STYLING LOGIC ---
 
