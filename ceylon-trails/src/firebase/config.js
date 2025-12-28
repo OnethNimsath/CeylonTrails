@@ -8,12 +8,12 @@ console.log('=== FIREBASE CONFIG LOADING ===');
 // Your web app's Firebase configuration
 // REPLACE THESE WITH YOUR ACTUAL FIREBASE CREDENTIALS
 const firebaseConfig = {
-  apiKey: "AIzaSyBIf-fXRwCV02dsRq-eTpDBP8bNxXkpty4",
-  authDomain: "ceylontrails-ba75e.firebaseapp.com",
-  projectId: "ceylontrails-ba75e",
-  storageBucket: "ceylontrails-ba75e.firebasestorage.app",
-  messagingSenderId: "776839810430",
-  appId: "1:776839810430:web:1f55d90deafe304e04372f"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 console.log('Firebase config loaded:', {

@@ -325,19 +325,7 @@ const Reviews = () => {
               {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6">
                 
-                {/* Test Firebase Button */}
-                <div className="mb-6 p-4 bg-blue-50 rounded-xl border-2 border-blue-200">
-                  <button 
-                    type="button"
-                    onClick={testFirebaseConnection}
-                    className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-semibold transition-colors"
-                  >
-                    🧪 Test Firebase Connection
-                  </button>
-                  <p className="text-xs text-blue-600 mt-2 text-center">
-                    Click this button first to test if Firebase is working
-                  </p>
-                </div>
+                
 
                 {/* Tourist Name */}
                 <div>
