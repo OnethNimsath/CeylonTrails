@@ -47,45 +47,6 @@ const Reviews = () => {
     }));
   };
 
-  // Test Firebase Connection Function
-  const testFirebaseConnection = async () => {
-    console.log('=== TESTING FIREBASE CONNECTION ===');
-    console.log('DB object:', db);
-    
-    try {
-      console.log('Attempting to write test document...');
-      
-      // Simpler test with timeout
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Request timeout after 10 seconds')), 10000)
-      );
-      
-      const writePromise = addDoc(collection(db, 'test'), {
-        message: 'Test from CeylonTrails',
-        timestamp: new Date(),
-        testField: 'Hello World'
-      });
-      
-      const testDoc = await Promise.race([writePromise, timeoutPromise]);
-      
-      console.log('✓ SUCCESS! Test document created with ID:', testDoc.id);
-      alert('✓ Firebase connection works! Check Firebase Console for "test" collection');
-      
-    } catch (error) {
-      console.error('❌ TEST FAILED!');
-      console.error('Error:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
-      console.error('Error name:', error.name);
-      
-      if (error.message.includes('timeout')) {
-        alert('❌ Request timed out! Check:\n1. Is Firestore database created?\n2. Are security rules set?\n3. Internet connection working?');
-      } else {
-        alert('❌ Firebase test failed! Error: ' + error.message);
-      }
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -208,33 +169,35 @@ const Reviews = () => {
 
   const StarRating = () => {
     return (
-      <div className="flex items-center space-x-2">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <button
-            key={star}
-            type="button"
-            onClick={() => setFormData(prev => ({ ...prev, rating: star }))}
-            onMouseEnter={() => setHoveredStar(star)}
-            onMouseLeave={() => setHoveredStar(0)}
-            className="transition-transform duration-200 hover:scale-110 focus:outline-none"
-            aria-label={`Rate ${star} stars`}
-          >
-            <svg
-              className={`w-10 h-10 transition-colors duration-200 ${
-                star <= (hoveredStar || formData.rating)
-                  ? 'text-yellow-400 fill-current'
-                  : 'text-gray-300'
-              }`}
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="1"
+      <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2">
+        <div className="flex space-x-1">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <button
+              key={star}
+              type="button"
+              onClick={() => setFormData(prev => ({ ...prev, rating: star }))}
+              onMouseEnter={() => setHoveredStar(star)}
+              onMouseLeave={() => setHoveredStar(0)}
+              className="transition-transform duration-200 hover:scale-110 focus:outline-none active:scale-95"
+              aria-label={`Rate ${star} stars`}
             >
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-            </svg>
-          </button>
-        ))}
-        <span className="ml-3 text-xl font-semibold text-gray-700">{formData.rating} / 5</span>
+              <svg
+                className={`w-8 h-8 sm:w-10 sm:h-10 transition-colors duration-200 ${
+                  star <= (hoveredStar || formData.rating)
+                    ? 'text-yellow-400 fill-current'
+                    : 'text-gray-300'
+                }`}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            </button>
+          ))}
+        </div>
+        <span className="text-lg sm:text-xl font-semibold text-gray-700">{formData.rating} / 5</span>
       </div>
     );
   };
@@ -243,7 +206,7 @@ const Reviews = () => {
     <>
       {/* Hero Section */}
       <section 
-        className="relative bg-gradient-to-r from-[#1a2e24] to-[#3a6042] text-white py-20 md:py-28"
+        className="relative bg-gradient-to-r from-[#1a2e24] to-[#3a6042] text-white py-12 sm:py-16 md:py-20 lg:py-28"
         style={{
           backgroundImage: `url(${heroImage})`,
           backgroundSize: 'cover',
@@ -252,12 +215,12 @@ const Reviews = () => {
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
-        <div className="container mx-auto px-6 text-center relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 px-2"
           >
             Share Your Experience
           </motion.h1>
@@ -265,7 +228,7 @@ const Reviews = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-3xl mx-auto px-4"
           >
             Your feedback helps us create better experiences for future travelers
           </motion.p>
@@ -273,27 +236,27 @@ const Reviews = () => {
       </section>
 
       {/* Review Form Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto"
           >
-            <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12">
+            <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl p-6 sm:p-8 md:p-12">
               
               {/* Form Header */}
-              <div className="text-center mb-8">
-                <div className="inline-block p-4 bg-[#6a9772]/10 rounded-full mb-4">
-                  <svg className="w-12 h-12 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="text-center mb-6 sm:mb-8">
+                <div className="inline-block p-3 sm:p-4 bg-[#6a9772]/10 rounded-full mb-3 sm:mb-4">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                   </svg>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1a2e24] mb-2">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a2e24] mb-2">
                   Write Your Review
                 </h2>
-                <p className="text-gray-600 text-lg">
+                <p className="text-gray-600 text-base sm:text-lg">
                   Tell us about your Sri Lankan adventure
                 </p>
               </div>
@@ -303,29 +266,27 @@ const Reviews = () => {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`mb-6 p-4 rounded-xl flex items-start space-x-3 ${
+                  className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-xl flex items-start space-x-2 sm:space-x-3 ${
                     submitStatus.type === 'success'
                       ? 'bg-green-50 text-green-800 border border-green-200'
                       : 'bg-red-50 text-red-800 border border-red-200'
                   }`}
                 >
                   {submitStatus.type === 'success' ? (
-                    <svg className="w-6 h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                     </svg>
                   ) : (
-                    <svg className="w-6 h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                     </svg>
                   )}
-                  <span>{submitStatus.message}</span>
+                  <span className="text-sm sm:text-base">{submitStatus.message}</span>
                 </motion.div>
               )}
 
               {/* Form */}
-              <form onSubmit={handleSubmit} className="space-y-6">
-                
-                
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
 
                 {/* Tourist Name */}
                 <div>
@@ -338,7 +299,7 @@ const Reviews = () => {
                     value={formData.touristName}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all text-lg"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all text-base sm:text-lg"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -353,7 +314,7 @@ const Reviews = () => {
                     value={formData.destination}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all text-lg appearance-none cursor-pointer bg-white"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all text-base sm:text-lg appearance-none cursor-pointer bg-white"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
                       backgroundPosition: 'right 0.5rem center',
@@ -374,9 +335,9 @@ const Reviews = () => {
                   <label className="block text-sm font-bold text-gray-700 mb-3">
                     Your Rating <span className="text-red-500">*</span>
                   </label>
-                  <div className="bg-gray-50 p-6 rounded-xl border-2 border-gray-200">
+                  <div className="bg-gray-50 p-4 sm:p-6 rounded-xl border-2 border-gray-200">
                     <StarRating />
-                    <p className="text-sm text-gray-500 mt-3">
+                    <p className="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">
                       {formData.rating === 5 && '⭐ Excellent - Exceeded expectations!'}
                       {formData.rating === 4 && '⭐ Very Good - Highly recommend!'}
                       {formData.rating === 3 && '⭐ Good - Worth the visit'}
@@ -396,16 +357,16 @@ const Reviews = () => {
                     value={formData.feedback}
                     onChange={handleChange}
                     required
-                    rows="6"
-                    className="w-full px-4 py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all resize-none text-lg"
+                    rows="5"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3.5 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#6a9772] focus:border-transparent transition-all resize-none text-base sm:text-lg"
                     placeholder="Share your experience... What did you love? What could be improved? Any tips for future travelers?"
                   />
                   <div className="flex justify-between items-center mt-2">
-                    <p className={`text-sm ${formData.feedback.length < 20 ? 'text-red-500' : 'text-green-600'}`}>
+                    <p className={`text-xs sm:text-sm ${formData.feedback.length < 20 ? 'text-red-500' : 'text-green-600'}`}>
                       {formData.feedback.length} characters
                     </p>
-                    <p className="text-sm text-gray-400">
-                      Minimum 20 characters
+                    <p className="text-xs sm:text-sm text-gray-400">
+                      Min 20 chars
                     </p>
                   </div>
                 </div>
@@ -416,19 +377,19 @@ const Reviews = () => {
                   disabled={isSubmitting || formData.feedback.length < 20}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className={`w-full py-4 rounded-xl font-bold text-white text-lg transition-all duration-300 shadow-lg ${
+                  className={`w-full py-3 sm:py-4 rounded-xl font-bold text-white text-base sm:text-lg transition-all duration-300 shadow-lg ${
                     isSubmitting || formData.feedback.length < 20
                       ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-[#f59e0b] hover:bg-[#fbbf24] hover:shadow-xl'
+                      : 'bg-[#f59e0b] hover:bg-[#fbbf24] hover:shadow-xl active:scale-95'
                   }`}
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
-                      <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                      <svg className="animate-spin h-5 w-5 mr-2 sm:mr-3" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                       </svg>
-                      Submitting Your Review...
+                      Submitting...
                     </span>
                   ) : (
                     <span className="flex items-center justify-center">
@@ -443,12 +404,12 @@ const Reviews = () => {
               </form>
 
               {/* Privacy Notice */}
-              <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <div className="flex items-start space-x-3">
+              <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <div className="flex items-start space-x-2 sm:space-x-3">
                   <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                   </svg>
-                  <div className="text-sm text-blue-800">
+                  <div className="text-xs sm:text-sm text-blue-800">
                     <p className="font-semibold mb-1">Privacy & Terms</p>
                     <p>Your review may be displayed publicly on our website. We respect your privacy and will only use your information to improve our services.</p>
                   </div>
@@ -461,13 +422,13 @@ const Reviews = () => {
       </section>
 
       {/* Why Review Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
-            <h3 className="text-3xl font-bold text-center text-[#1a2e24] mb-12">
+            <h3 className="text-2xl sm:text-3xl font-bold text-center text-[#1a2e24] mb-8 sm:mb-12 px-2">
               Why Your Review Matters
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -475,13 +436,13 @@ const Reviews = () => {
                 transition={{ duration: 0.5 }}
                 className="text-center"
               >
-                <div className="inline-block p-4 bg-[#6a9772]/10 rounded-full mb-4">
-                  <svg className="w-10 h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-block p-3 sm:p-4 bg-[#6a9772]/10 rounded-full mb-3 sm:mb-4">
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-[#1a2e24] mb-2">Help Others</h4>
-                <p className="text-gray-600">Your experience guides future travelers in planning their perfect trip</p>
+                <h4 className="text-lg sm:text-xl font-bold text-[#1a2e24] mb-2">Help Others</h4>
+                <p className="text-sm sm:text-base text-gray-600 px-2">Your experience guides future travelers in planning their perfect trip</p>
               </motion.div>
 
               <motion.div
@@ -491,13 +452,13 @@ const Reviews = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-center"
               >
-                <div className="inline-block p-4 bg-[#6a9772]/10 rounded-full mb-4">
-                  <svg className="w-10 h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-block p-3 sm:p-4 bg-[#6a9772]/10 rounded-full mb-3 sm:mb-4">
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-[#1a2e24] mb-2">Improve Services</h4>
-                <p className="text-gray-600">Your feedback helps us enhance and deliver better experiences</p>
+                <h4 className="text-lg sm:text-xl font-bold text-[#1a2e24] mb-2">Improve Services</h4>
+                <p className="text-sm sm:text-base text-gray-600 px-2">Your feedback helps us enhance and deliver better experiences</p>
               </motion.div>
 
               <motion.div
@@ -505,15 +466,15 @@ const Reviews = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-center"
+                className="text-center sm:col-span-2 lg:col-span-1"
               >
-                <div className="inline-block p-4 bg-[#6a9772]/10 rounded-full mb-4">
-                  <svg className="w-10 h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-block p-3 sm:p-4 bg-[#6a9772]/10 rounded-full mb-3 sm:mb-4">
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#6a9772]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
                 </div>
-                <h4 className="text-xl font-bold text-[#1a2e24] mb-2">Share the Love</h4>
-                <p className="text-gray-600">Celebrate the beauty of Sri Lanka and inspire others to visit</p>
+                <h4 className="text-lg sm:text-xl font-bold text-[#1a2e24] mb-2">Share the Love</h4>
+                <p className="text-sm sm:text-base text-gray-600 px-2">Celebrate the beauty of Sri Lanka and inspire others to visit</p>
               </motion.div>
             </div>
           </div>
