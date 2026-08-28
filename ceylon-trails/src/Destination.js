@@ -124,7 +124,7 @@ const DestinationCard = ({ destination }) => {
         <motion.div
             variants={cardVariants}
             whileHover={{ y: -8, scale: 1.05 }}
-            className="flex h-full flex-col overflow-hidden bg-white/5 backdrop-blur-lg rounded-xl text-white shadow-2xl transition-shadow duration-300 hover:shadow-emerald-400/30 cursor-pointer"
+            className="flex h-full flex-col overflow-hidden bg-white/10 rounded-xl text-white shadow-2xl transition-shadow duration-300 hover:shadow-emerald-400/30 cursor-pointer"
         >
             <img
                 className="h-44 sm:h-52 md:h-56 w-full object-cover"

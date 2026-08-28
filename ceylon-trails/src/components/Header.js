@@ -50,7 +50,7 @@ const Header = () => {
     fixed top-0 left-0 right-0 z-50
     transition-all duration-300 ease-in-out
     ${isScrolled
-      ? 'h-16 sm:h-18 md:h-20 bg-[#1a2e24]/95 shadow-lg backdrop-blur-md'
+      ? 'h-16 sm:h-18 md:h-20 bg-[#1a2e24] shadow-lg'
       : 'h-16 sm:h-18 md:h-20 bg-gradient-to-b from-black/50 to-transparent'
     }
   `;

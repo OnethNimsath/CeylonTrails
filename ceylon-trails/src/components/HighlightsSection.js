@@ -10,10 +10,6 @@ import beachHighlight from '../images/Sri-Lanka-Beach.jpg';
 import ancientHighlight from '../images/Sri-Lanka-Heritage.jpg';
 import wildlifeHighlight from '../images/Sri-Lanka-Widlife-Safaries.jpg';
 
-// Wrap react-router's Link with framer-motion so a card can be animated
-// (stagger/scale variants) AND function as a real, clickable link.
-const MotionLink = motion(Link);
-
 const HighlightsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
@@ -85,10 +81,9 @@ const HighlightsSection = () => {
             animate={isInView ? "visible" : "hidden"}
           >
             {highlights.map((item, index) => (
-              <MotionLink
+              <motion.div
                 key={index}
-                to="/tours"
-                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-72 sm:h-80 md:h-96 lg:h-[28rem] w-full block"
+                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-72 sm:h-80 md:h-96 lg:h-[28rem] w-full"
                 variants={cardVariants}
               >
                 <img
@@ -117,7 +112,17 @@ const HighlightsSection = () => {
                     </div>
                   </div>
                 </motion.div>
-              </MotionLink>
+
+                {/* Full-card invisible link — sits above everything (z-20) so a
+                    click anywhere on the card, including the image, always
+                    registers. Kept as a plain (non-motion) Link for maximum
+                    reliability with react-router's click handling. */}
+                <Link
+                  to="/tours"
+                  aria-label={`Explore ${item.title} — view tours`}
+                  className="absolute inset-0 z-20"
+                />
+              </motion.div>
             ))}
           </motion.div>
         </div>

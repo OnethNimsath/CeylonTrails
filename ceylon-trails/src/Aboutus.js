@@ -230,7 +230,7 @@ function AboutUs() {
       <div className="relative py-16 sm:py-24 md:py-32">
         <div className="absolute inset-0">
           <img className="h-full w-full object-cover" src={adventureBg} alt="Desk with a map, compass, and travel items" loading="lazy" decoding="async" />
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+          <div className="absolute inset-0 bg-black/80"></div>
         </div>
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 md:mb-20">
@@ -271,7 +271,7 @@ function AboutUs() {
             </AnimatedSection>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 text-center">
                 {travelPhilosophy.map((item, index) => (
-                    <AnimatedSection key={index} className="bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-xl text-white">
+                    <AnimatedSection key={index} className="bg-white/10 p-6 sm:p-8 rounded-xl text-white">
                         <div className="flex justify-center mb-4">{React.cloneElement(item.icon, { className: "h-8 w-8 sm:h-10 sm:w-10 text-white" })}</div>
                         <h3 className="text-lg sm:text-xl font-semibold">{item.title}</h3>
                         <p className="mt-2 text-sm sm:text-base opacity-90">{item.description}</p>
@@ -312,7 +312,7 @@ function AboutUs() {
               <div className="mx-auto grid max-w-2xl grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                   {testimonials.map((review) => (
                   <AnimatedSection key={review.id}>
-                      <div className="flex h-full flex-col text-center bg-white/10 backdrop-blur-md p-6 sm:p-8 rounded-xl text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20">
+                      <div className="flex h-full flex-col text-center bg-white/10 p-6 sm:p-8 rounded-xl text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20">
                         <blockquote className="flex-grow">
                           <p className="text-base sm:text-lg leading-6 sm:leading-7 font-medium text-white line-clamp-5">"{review.feedback}"</p>
                         </blockquote>
