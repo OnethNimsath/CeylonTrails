@@ -12,9 +12,6 @@ const ReviewsDisplay = () => {
   const [displayCount, setDisplayCount] = useState(9);
 
   useEffect(() => {
-    console.log('=== ReviewsDisplay: Setting up listener ===');
-    console.log('Firebase db object:', db);
-    
     // Real-time listener for reviews
     const q = query(
       collection(db, 'reviews'),
@@ -22,26 +19,22 @@ const ReviewsDisplay = () => {
       orderBy('createdAt', 'desc')
     );
 
-    console.log('Query created:', q);
-
     const unsubscribe = onSnapshot(q, 
       (querySnapshot) => {
-        console.log('✓ Snapshot received! Document count:', querySnapshot.size);
         const reviewsData = [];
         querySnapshot.forEach((doc) => {
-          console.log('Document data:', doc.id, doc.data());
           reviewsData.push({ id: doc.id, ...doc.data() });
         });
-        console.log('Total reviews loaded:', reviewsData.length);
         setReviews(reviewsData);
         setLoading(false);
         setError(null);
       }, 
       (error) => {
-        console.error('❌ Error fetching reviews:', error);
-        console.error('Error code:', error.code);
-        console.error('Error message:', error.message);
-        console.error('Full error:', error);
+        // Log only the error code/type — never review content — to aid debugging
+        // without exposing any customer data in the console.
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Reviews listener error:', error.code);
+        }
         
         let errorMessage = 'Failed to load reviews. Please try again later.';
         
@@ -50,7 +43,7 @@ const ReviewsDisplay = () => {
         } else if (error.code === 'unavailable') {
           errorMessage = 'Service temporarily unavailable. Please try again later.';
         } else if (error.code === 'failed-precondition') {
-          errorMessage = 'Database index required. Click here to create: ' + error.message;
+          errorMessage = 'Database index required. Please check the Firebase console.';
         }
         
         setError(errorMessage);
@@ -58,11 +51,7 @@ const ReviewsDisplay = () => {
       }
     );
 
-    // Cleanup listener on unmount
-    return () => {
-      console.log('Cleaning up listener');
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const StarDisplay = ({ rating }) => {
@@ -94,37 +83,30 @@ const ReviewsDisplay = () => {
       const now = new Date();
       const diffInSeconds = Math.floor((now - date) / 1000);
       
-      // Less than 1 minute
       if (diffInSeconds < 60) return 'Just now';
       
-      // Less than 1 hour
       if (diffInSeconds < 3600) {
         const minutes = Math.floor(diffInSeconds / 60);
         return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'} ago`;
       }
       
-      // Less than 24 hours
       if (diffInSeconds < 86400) {
         const hours = Math.floor(diffInSeconds / 3600);
         return `${hours} ${hours === 1 ? 'hour' : 'hours'} ago`;
       }
       
-      // Less than 7 days
       if (diffInSeconds < 604800) {
         const days = Math.floor(diffInSeconds / 86400);
         return `${days} ${days === 1 ? 'day' : 'days'} ago`;
       }
       
-      // Default: show full date
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return date.toLocaleDateString('en-US', options);
     } catch (error) {
-      console.error('Error formatting date:', error);
       return 'Recently';
     }
   };
 
-  // Calculate average rating
   const calculateAverageRating = () => {
     if (reviews.length === 0) return 0;
     const sum = reviews.reduce((acc, review) => acc + review.rating, 0);

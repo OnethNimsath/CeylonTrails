@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import HighlightsSection from './components/HighlightsSection';
 import ExperienceSection from './components/ExperienceSection';
+import RecentReviews from './components/RecentReviews'; 
 import AboutUs from './Aboutus';
 import ContactUsPage from './components/ContactUs';
 import Destinations from './Destination';
@@ -28,6 +29,7 @@ function App() {
                   <HeroSection />
                   <HighlightsSection />
                   <ExperienceSection />
+                  <RecentReviews />   {/* 👈 add this line */}
                 </>
               } 
             />

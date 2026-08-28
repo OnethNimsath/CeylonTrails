@@ -1,5 +1,6 @@
 // src/components/HighlightsSection.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
@@ -8,6 +9,10 @@ import { FiArrowRight } from 'react-icons/fi';
 import beachHighlight from '../images/Sri-Lanka-Beach.jpg';
 import ancientHighlight from '../images/Sri-Lanka-Heritage.jpg';
 import wildlifeHighlight from '../images/Sri-Lanka-Widlife-Safaries.jpg';
+
+// Wrap react-router's Link with framer-motion so a card can be animated
+// (stagger/scale variants) AND function as a real, clickable link.
+const MotionLink = motion(Link);
 
 const HighlightsSection = () => {
   const ref = useRef(null);
@@ -62,54 +67,57 @@ const HighlightsSection = () => {
       <style>{gradientStyle}</style>
 
       <section 
-        className="py-10 xs:py-12 sm:py-16 md:py-20 lg:py-24 px-3 xs:px-4 sm:px-6 lg:px-8 subtle-animated-gradient" 
+        className="w-full py-10 xs:py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 subtle-animated-gradient overflow-hidden" 
         ref={ref}
       >
-        <div className="container mx-auto text-center">
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-[#3a6042] px-2">
+        <div className="container mx-auto max-w-7xl text-center">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-[#3a6042]">
             The Jewel of the Indian Ocean
           </h2>
-          <p className="text-sm xs:text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 md:mb-12 lg:mb-16 max-w-3xl mx-auto px-2 sm:px-4 leading-relaxed">
+          <p className="text-sm xs:text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 md:mb-12 lg:mb-16 max-w-3xl mx-auto leading-relaxed">
             From ancient wonders to breathtaking natural beauty, every moment in Sri Lanka is a treasure waiting to be discovered.
           </p>
 
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xs:gap-5 sm:gap-6 md:gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 w-full"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
             {highlights.map((item, index) => (
-              <motion.div
+              <MotionLink
                 key={index}
-                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-72 xs:h-80 sm:h-96 lg:h-[28rem]"
+                to="/tours"
+                className="relative rounded-xl shadow-lg overflow-hidden group cursor-pointer h-72 sm:h-80 md:h-96 lg:h-[28rem] w-full block"
                 variants={cardVariants}
               >
                 <img
                   src={item.image}
                   alt={item.title}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 <motion.div 
-                  className="absolute bottom-0 left-0 right-0 p-4 xs:p-5 sm:p-6 text-white text-left"
+                  className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 md:p-6 text-white text-left"
                   layout
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 >
-                  <h3 className="text-lg xs:text-xl sm:text-2xl font-bold">{item.title}</h3>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold">{item.title}</h3>
                   <div className="overflow-hidden">
-                    <p className="mt-2 text-xs xs:text-sm sm:text-base text-gray-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">
+                    <p className="mt-2 text-xs sm:text-sm md:text-base text-gray-300 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 ease-in-out">
                       {item.description}
                     </p>
-                    <div className="mt-2 xs:mt-3 sm:mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="inline-flex items-center font-semibold text-xs xs:text-sm sm:text-base">
+                    <div className="mt-2 sm:mt-3 md:mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <span className="inline-flex items-center font-semibold text-xs sm:text-sm md:text-base">
                         Explore <FiArrowRight className="ml-2" />
                       </span>
                     </div>
                   </div>
                 </motion.div>
-              </motion.div>
+              </MotionLink>
             ))}
           </motion.div>
         </div>

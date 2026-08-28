@@ -50,12 +50,8 @@ const Reviews = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    console.log('=== FORM SUBMISSION STARTED ===');
-    console.log('Form Data:', formData);
-    
     // Validation before submission
     if (formData.feedback.trim().length < 20) {
-      console.error('Validation failed: Feedback too short');
       setSubmitStatus({ 
         type: 'error', 
         message: 'Please write at least 20 characters in your feedback.' 
@@ -64,7 +60,6 @@ const Reviews = () => {
     }
 
     if (!formData.touristName.trim()) {
-      console.error('Validation failed: No name');
       setSubmitStatus({ 
         type: 'error', 
         message: 'Please enter your name.' 
@@ -73,7 +68,6 @@ const Reviews = () => {
     }
 
     if (!formData.destination) {
-      console.error('Validation failed: No destination');
       setSubmitStatus({ 
         type: 'error', 
         message: 'Please select a destination.' 
@@ -83,7 +77,6 @@ const Reviews = () => {
 
     // Check if online
     if (!navigator.onLine) {
-      console.error('Validation failed: Offline');
       setSubmitStatus({ 
         type: 'error', 
         message: 'No internet connection. Please check your network and try again.' 
@@ -91,10 +84,6 @@ const Reviews = () => {
       return;
     }
 
-    console.log('✓ All validations passed');
-    console.log('Firebase db object:', db);
-    console.log('Attempting to write to Firestore...');
-    
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -109,11 +98,7 @@ const Reviews = () => {
         status: 'approved'
       };
       
-      console.log('Review data to be saved:', reviewData);
-      
-      const docRef = await addDoc(collection(db, 'reviews'), reviewData);
-
-      console.log('✓ SUCCESS! Review written with ID:', docRef.id);
+      await addDoc(collection(db, 'reviews'), reviewData);
 
       setSubmitStatus({ 
         type: 'success', 
@@ -142,9 +127,11 @@ const Reviews = () => {
       }, 1000);
 
     } catch (error) {
-      console.error('Error submitting review:', error);
-      console.error('Error code:', error.code);
-      console.error('Error message:', error.message);
+      // Log only the error code — never the submitted review content —
+      // to avoid exposing a customer's name/feedback in the console.
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Review submission error:', error.code);
+      }
       
       let errorMessage = 'Failed to submit review. Please try again.';
       

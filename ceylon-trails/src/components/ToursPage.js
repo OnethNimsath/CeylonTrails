@@ -6,7 +6,7 @@ import toursHeroImage from '../images/tours.jpg';
 
 const ToursPage = () => {
     // WhatsApp contact for tour bookings
-    const TOUR_WHATSAPP_NUMBER = "94774378268"; 
+    const TOUR_WHATSAPP_NUMBER = "94754211930"; 
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -77,10 +77,10 @@ const ToursPage = () => {
 
     return (
         <div className="flex flex-col min-h-screen w-screen overflow-x-hidden bg-white">
-            <main className="container mx-auto p-4 sm:p-8 flex-grow mt-8"> 
+            <main className="container mx-auto px-4 sm:px-6 md:px-8 py-4 sm:py-8 flex-grow mt-4 sm:mt-8"> 
                 
                 {/* Tours Hero Section with Background Image */}
-                <section className={`relative text-center py-16 md:py-24 rounded-xl shadow-lg text-white overflow-hidden transition-all duration-1000 ${visibleClass} delay-[50ms] mb-16`}>
+                <section className={`relative text-center py-12 sm:py-16 md:py-24 rounded-xl shadow-lg text-white overflow-hidden transition-all duration-1000 ${visibleClass} delay-[50ms] mb-10 sm:mb-16`}>
                     {/* Background Image */}
                     <div 
                         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -92,35 +92,37 @@ const ToursPage = () => {
                     
                     {/* Content */}
                     <div className="relative z-10 p-4">
-                        <GlobeAltIcon className="w-16 h-16 mx-auto mb-4 text-orange-500" />
-                        <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
+                        <GlobeAltIcon className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-orange-500" />
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-3 sm:mb-4">
                             Explore Sri Lanka
                         </h1>
-                        <p className="text-lg font-light max-w-3xl mx-auto">
+                        <p className="text-base sm:text-lg font-light max-w-3xl mx-auto">
                             Discover the island's best cultural wonders, wildlife, and stunning natural landscapes. Book your unforgettable tour with us!
                         </p>
                     </div>
                 </section>
 
                 {/* Destination Cards Grid */}
-                <section className={`my-16 md:my-24 text-center transition-all duration-1000 ${visibleClass} delay-150`}>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-12">Top Tourist Destinations</h2>
+                <section className={`my-10 sm:my-16 md:my-24 text-center transition-all duration-1000 ${visibleClass} delay-150`}>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-8 sm:mb-12">Top Tourist Destinations</h2>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
                         {destinations.map((dest, index) => (
                             <div key={index} className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col transition duration-300 transform hover:scale-[1.02] border-t-4 border-orange-500">
                                 {/* Destination Image */}
                                 <img 
                                     src={dest.image} 
                                     alt={dest.name} 
-                                    className="w-full h-48 object-cover" 
+                                    className="w-full h-40 sm:h-48 object-cover" 
+                                    loading={index < 2 ? 'eager' : 'lazy'}
+                                    decoding="async"
                                     onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/400x250/cccccc/333333?text=${dest.name.replace(/\s/g, '+')}` }}
                                 />
-                                <div className="p-6 flex flex-col flex-grow">
+                                <div className="p-5 sm:p-6 flex flex-col flex-grow">
                                     <span className="text-xs font-semibold text-orange-600 bg-orange-100 px-2 py-1 rounded-full inline-block self-start mb-2">
                                         {dest.tag}
                                     </span>
-                                    <h3 className="text-xl font-bold text-gray-800 mb-3">{dest.name}</h3>
+                                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3">{dest.name}</h3>
                                     <p className="text-gray-600 text-sm flex-grow mb-4">
                                         {dest.description}
                                     </p>

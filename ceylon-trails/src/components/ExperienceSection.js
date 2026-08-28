@@ -49,7 +49,7 @@ const ExperienceSection = () => {
 
         <div className="space-y-20">
           {experiences.map((exp, index) => (
-            <ExperienceItem key={index} experience={exp} />
+            <ExperienceItem key={index} experience={exp} index={index} />
           ))}
         </div>
       </div>
@@ -58,7 +58,7 @@ const ExperienceSection = () => {
 };
 
 // Sub-component for individual items to handle their own animation state
-const ExperienceItem = ({ experience }) => {
+const ExperienceItem = ({ experience, index }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
 
@@ -83,7 +83,13 @@ const ExperienceItem = ({ experience }) => {
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
       >
-        <img src={image} alt={title} className="rounded-lg shadow-2xl object-cover w-full h-80" />
+        <img
+          src={image}
+          alt={title}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          className="rounded-lg shadow-2xl object-cover w-full h-80"
+        />
       </motion.div>
 
       {/* Text Column */}
