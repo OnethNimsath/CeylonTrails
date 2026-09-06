@@ -81,7 +81,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="text-center text-gray-500 text-xs sm:text-sm border-t border-gray-700/50 mt-10 sm:mt-16 pt-6 sm:pt-8">
           <p>© {new Date().getFullYear()} Ceylon Trails. All Rights Reserved.</p>
-          <p className="mt-1">Developed by <a href="#" className="hover:text-white underline">Byte Orbit</a></p>
+          <p className="mt-1">Developed by <a href="https://byteorbitsolutions.lk/" className="hover:text-white underline">Byte Orbit Solutions</a></p>
         </div>
       </div>
     </footer>
